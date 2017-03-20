@@ -1,9 +1,3 @@
-function getData(make) {
-    var data = "dane.json";
-    $.getJSON(data).done(make);
-}
-
-
 function Meal(json) {
     var self = this;
     self.publisher = json.publisher;
@@ -67,29 +61,20 @@ function ListOfMeals() {
 function doJob(data) {
     console.log(data.recipes.length);
     var listOfMeals = new ListOfMeals();
-    $.each(data.recipes, function (i, recipes) {
+    for (var i = 0; i < data.recipes.length; i++){
         listOfMeals.addMeal(data.recipes[i]);
-        if (i == data.recipes.length) {
+         if (i == data.recipes.length) {
             return false;
         }
-    });
+    }
     var context = document.getElementById('table');
     context.innerHTML = listOfMeals.toTable();
 }
 
 
 function init() {
-    getData(doJob);
-    document.getElementById('table').innerHTML = "Fetching the data!";
-//     var urlcode= "http://food2fork.com/api/search?key=3e9166ad629eca6587a5e501e4e30961&q=shredded%20chicken";
-//     $.ajax({
-//     url: urlcode,
-//     type: 'GET',
-//     dataType: 'text/plain',
-//     headers: {'Access-Control-Allow-Origin': '*'},
-//     success: function() { alert("Success"); },
-//     error: function() { alert('Failed!'); }
-// });
+    var data = JSON.parse(text);
+    doJob(data);
 }
 
 

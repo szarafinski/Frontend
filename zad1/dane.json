@@ -1,4 +1,4 @@
-{
+var text = `{
 	"count": 30,
 	"recipes": [{
 		"publisher": "The Pioneer Woman",
@@ -271,4 +271,4 @@
 		"social_rank": 100.0,
 		"publisher_url": "http://allrecipes.com"
 	}]
-}
+}`;
