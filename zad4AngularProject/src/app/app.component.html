@@ -1,0 +1,7 @@
+<div class="row">
+    <h2>Menu:</h2>
+</div>
+<div class="row">
+    <app-meal-table [data]="data" [(selected)]="selectedMeal" class="col-xs-4"></app-meal-table>
+    <app-meal [meal]="selectedMeal" class="col-xs-8"></app-meal>
+</div>

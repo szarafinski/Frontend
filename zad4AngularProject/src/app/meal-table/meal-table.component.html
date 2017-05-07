@@ -1,0 +1,13 @@
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 lass="panel-title">Table of Meals</h3>
+    </div>
+    <ul class="nav nav-pills nav-stacked">
+      <li 
+        *ngFor="let meal of data"
+        [class.active]="selected == meal" >
+        <a (click) ="selectedChange.emit(meal)">{{meal.title}}</a></li>
+    </ul>
+  </div>
+
+ 
