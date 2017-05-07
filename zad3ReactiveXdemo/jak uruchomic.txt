@@ -1,0 +1,5 @@
+1) npm install - powoduje ze instaluje wszelkie zaleznosci z package.json
+
+" npm instal ... --save-dev " - dodaje do package.json zaleznosci dzieki temu nie trzeba instalowac na nowo przy kazdym projekcie
+
+2) live-server : uruchamiamy by nasluchiwal zmian w pliku html'owym i go aktualizowal automatycznie
