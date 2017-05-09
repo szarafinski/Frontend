@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl } from '@angular/forms';
+import {FormControl, FormGroup , AbstractControl  } from '@angular/forms';
 
 @Component({
   selector: 'app-hero',
@@ -7,7 +7,14 @@ import {FormControl } from '@angular/forms';
   styleUrls: ['./hero.component.css']
 })
 export class HeroComponent implements OnInit {
-public name = new FormControl();
+heroForm = new FormGroup ({
+    name: new FormControl(),
+    color: new FormControl(),
+  });
+
+  color =  this.heroForm.controls['color'];
+
+
   constructor() { }
 
   ngOnInit() {

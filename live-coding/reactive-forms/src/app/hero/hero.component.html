@@ -1,5 +1,15 @@
 <h2>Hero Detail</h2>
-<h3><i>Just a FormControl</i></h3>
-<label class="center-block">Name:
-  <input class="form-control" [formControl]="name">
-</label>
+<h3><i>FormControl in a FormGroup</i></h3>
+<form [formGroup]="heroForm" novalidate>
+  <div class="form-group">
+    <label class="center-block">Name:
+      <input class="form-control" type="text" formControlName="name">
+    </label>
+    <label class="center-block">Color:
+      <input class="form-control" type="text" [formControl]='color'>
+    </label>
+  </div>
+</form>
+<!--The value goes into the form model that backs the group's FormControls. -->
+<p>Form value: {{ heroForm.value | json }}</p>
+<p>Form status: {{ heroForm.status | json }}</p>
