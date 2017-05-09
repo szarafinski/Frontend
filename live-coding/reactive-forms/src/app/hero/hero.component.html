@@ -8,6 +8,10 @@
     <label class="center-block">Color:
       <input class="form-control" type="text" [formControl]='color'>
     </label>
+  <div *ngIf='color.hasError("minlength")'>Minimal Length here is 5 letters</div>
+      <label class="center-block">Test:
+      <input class="form-control" type="text" formControlName='test'>
+    </label>
   </div>
 </form>
 <!--The value goes into the form model that backs the group's FormControls. -->

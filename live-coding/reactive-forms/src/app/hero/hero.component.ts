@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup , AbstractControl  } from '@angular/forms';
+import { FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-hero',
@@ -7,15 +7,23 @@ import {FormControl, FormGroup , AbstractControl  } from '@angular/forms';
   styleUrls: ['./hero.component.css']
 })
 export class HeroComponent implements OnInit {
-heroForm = new FormGroup ({
-    name: new FormControl(),
-    color: new FormControl(),
-  });
+  heroForm: FormGroup;
+  color: AbstractControl;
 
-  color =  this.heroForm.controls['color'];
+  constructor(fb: FormBuilder) {
+    this.heroForm = fb.group({
+      name: ['', Validators.required],
+      test: '',
+      color: ['red', Validators.compose([
+              Validators.required,
+              Validators.minLength(5)]
+      )]
+    });
+
+    this.color = this.heroForm.controls['color'];
+  }
 
 
-  constructor() { }
 
   ngOnInit() {
   }
