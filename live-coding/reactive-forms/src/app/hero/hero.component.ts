@@ -1,45 +1,75 @@
-import { states } from './../data-model';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { HeroServiceService } from './../hero-service.service';
+import { states, Hero, Address } from './../data-model';
+import { Component, Input, OnChanges } from '@angular/core';
+import { FormArray, FormControl, FormGroup, AbstractControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-hero',
+  selector: 'hero-detail',
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.css']
 })
-export class HeroComponent implements OnInit {
+export class HeroComponent implements OnChanges {
+  @Input() hero: Hero;
   heroForm: FormGroup;
-  // to make <div> work value of GroupForm must be declared as TypeScript value <- 1
-  color: AbstractControl;
-
+  nameChangeLog: string[] = [];
   states = states;
-  constructor(private fb: FormBuilder) {
-    this.heroForm = fb.group({
-      //  GroupForm checks for valid input: name
-      name: ['', Validators.required],
-      // it is not nessesary to put validators
-      // it's nessesary to put empty value into variable
+  constructor(
+    private fb: FormBuilder,
+    private heroService: HeroServiceService) {
+    this.createForm();
+    this.logNameChange();
+  }
+  createForm() {
+    this.heroForm = this.fb.group({
+      name: '',
+      secretLairs: this.fb.array([]),
       power: '',
-      // to make <div> work value of GroupForm must be declared as TypeScript value <- 2
-      color: ['red', Validators.compose([
-        Validators.required,
-        Validators.minLength(5)]
-      )],
-      address: this.fb.group({
-        street: '',
-        city: '',
-        state: '',
-        zip: '',
-      }),
       sidekick: ''
     });
-    // to make <div> work value of GroupForm must be declared as TypeScript value <- 3
-    this.color = this.heroForm.controls['color'];
   }
-
-
-
-  ngOnInit() {
+  ngOnChanges() {
+    this.heroForm.reset({
+      name: this.hero.name
+    });
+    this.setAddresses(this.hero.addresses);
   }
-
+  get secretLairs(): FormArray {
+    return this.heroForm.get('secretLairs') as FormArray;
+  };
+  setAddresses(addresses: Address[]) {
+    const addressFGs = addresses.map(address => this.fb.group(address));
+    const addressFormArray = this.fb.array(addressFGs);
+    this.heroForm.setControl('secretLairs', addressFormArray);
+  }
+  addLair() {
+    this.secretLairs.push(this.fb.group(new Address()));
+  }
+  onSubmit() {
+    this.hero = this.prepareSaveHero();
+    this.heroService.updateHero(this.hero).subscribe(/* error handling */);
+    this.ngOnChanges();
+  }
+  prepareSaveHero(): Hero {
+    const formModel = this.heroForm.value;
+    // deep copy of form model lairs
+    const secretLairsDeepCopy: Address[] = formModel.secretLairs.map(
+      (address: Address) => Object.assign({}, address)
+    );
+    // return new `Hero` object containing a combination of original hero value(s)
+    // and deep copies of changed form model values
+    const saveHero: Hero = {
+      id: this.hero.id,
+      name: formModel.name as string,
+      // addresses: formModel.secretLairs // <-- bad!
+      addresses: secretLairsDeepCopy
+    };
+    return saveHero;
+  }
+  revert() { this.ngOnChanges(); }
+  logNameChange() {
+    const nameControl = this.heroForm.get('name');
+    nameControl.valueChanges.forEach(
+      (value: string) => this.nameChangeLog.push(value)
+    );
+  }
 }
