@@ -1,0 +1,4 @@
+<div class="input-group pull-right">
+  <input type="text" placeholder="search..." [formControl]='searchControl'>
+  <span *ngIf='searchControl.value' class="input-group-addon" (click)="clear()" class="glyphicon glyphicon-remove"></span>
+</div>

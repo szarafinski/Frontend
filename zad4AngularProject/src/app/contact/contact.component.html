@@ -1,0 +1,16 @@
+    <h3>Contact Center</h3>
+    <div *ngIf="sending">
+      {{ details }}
+    </div>
+    <div>
+      <div>
+        <label>Message: </label>
+      </div>
+      <div>
+        <textarea [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>
+      </div>
+    </div>
+    <p>
+      <button *ngIf="!sending && message.length!=0" (click)="send()">Send</button>
+      <button *ngIf="!sending" (click)="cancel()">Cancel</button>
+    </p>

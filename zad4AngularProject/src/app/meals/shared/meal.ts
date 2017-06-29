@@ -1,4 +1,4 @@
-export class Data {
+export class Meal {
 	  	publisher: string;
 		f2f_url: string;
 		title: string;

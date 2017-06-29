@@ -1,0 +1,20 @@
+<h1> Wikipedia Search Engine</h1>
+<input type="text" [formControl]="term" />
+<div *ngIf="request">
+  <div *ngIf="name.length >0 ">
+    <h1>Wyniki dla zapytania: {{request}} </h1>
+    <table style="border-collapse: collapse">
+      <tr>
+        <th style="border: 1px solid black">Nazwa</th>
+        <th style="border: 1px solid black">Opis</th>
+      </tr>
+      <tr *ngFor="let element of name; let i = index">
+        <td style="border: 1px solid black"> <a href={{nameUrl[i]}}> {{name[i]}} </a> </td>
+        <td style="border: 1px solid black"> {{description[i]}} </td>
+      </tr>
+    </table>
+  </div>
+  <div *ngIf="name.length ==0">
+    <h1>Brak wyników dla zapytania: {{request}} </h1>
+  </div>
+</div>

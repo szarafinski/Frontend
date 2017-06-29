@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="row full">
+        <h2 class="text-center">Meals DataBase</h2>
+        <div class="col-sm-4">
+            <div class="row">
+                <div *ngIf="dataSet">
+                    <app-meal-table [meals]='dataSet' [(selected)]="selectedMeal" (PermisionToAddMeal)="change($event)"></app-meal-table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div *ngIf="selectedMeal">
+                        <app-meal [meal]="selectedMeal"></app-meal>
+                    </div>
+                    <div *ngIf="addMeal && !selectedMeal">
+                        <add-table></add-table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

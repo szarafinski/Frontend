@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+  <div class="panel-heading clearfix" *ngIf="!meal">
+    <h3>Add Meal</h3>
+  </div>
+  <form [formGroup]="mealForm" (ngSubmit)="onSubmit()">
+    <!-- Meal Detail Controls -->
+    <div class="form-group">
+      <label class="center-block">
+          Title:
+          <input class="form-control" type="text" [formControl]='title'>
+        </label>
+      <div class="alert alert-danger" *ngIf='title.hasError("required")'>required</div>
+      <label class="center-block">
+          Publisher:
+          <input class="form-control" type="text" [formControl]='publisher'>
+        </label>
+      <div class="alert alert-danger" *ngIf='publisher.hasError("required")'>required</div>
+      <label class="center-block">
+          Publisher URL:
+          <input class="form-control" type="text" [formControl]='publisher_url'>
+        </label>
+      <div class="alert alert-danger" *ngIf='publisher_url.hasError("required")'>required</div>
+      <label class="center-block">
+          Social Rank:
+          <input class="form-control" type="number" [formControl]='social_rank'>
+        </label>
+      <div class="alert alert-danger" *ngIf='social_rank.hasError("required")'>number is required</div>
+      <div class="alert alert-warning" *ngIf='social_rank.hasError("gap")'>number should be between 0 and 100</div>
+      <label class="center-block">
+          Image URL:
+          <input class="form-control" type="text" [formControl]='image_url'>
+        </label>
+      <div class="alert alert-danger" *ngIf='image_url.hasError("required")'>required</div>
+      <label class="center-block">
+          Source URL:
+          <input class="form-control" type="text" [formControl]='source_url'>
+        </label>
+      <label class="center-block">
+          Food 2 Fork recipe URL:
+          <input class="form-control" type="text" [formControl]='f2f_url'>
+        </label>
+      <div class="alert alert-danger" *ngIf='f2f_url.hasError("required")'>required</div>
+    </div>
+    <!--Buttons-->
+    <div style="margin-bottom: 1em">
+      <button type="submit" [disabled]="!mealForm.valid" class="btn btn-success">Save</button> &nbsp;
+      <button type="button" (click)="cancel()" [disabled]="mealForm.pristine" class="btn btn-warning">Cancel</button> &nbsp;
+    </div>
+  </form>
+</div>

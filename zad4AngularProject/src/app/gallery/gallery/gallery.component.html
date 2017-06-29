@@ -1,0 +1,6 @@
+<ul id="thumbnailsList">
+  <li *ngFor="let image of dataSet | async">
+<a href="{{image.f2f_url}}"><img src="{{image.image_url}}" class="tn" alt=""
+ title="{{image.title}}" width="191" height="146"></a>
+  </li>
+</ul>

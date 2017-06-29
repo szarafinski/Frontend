@@ -1,7 +1,9 @@
-<div class="row">
-    <h2>Menu:</h2>
-</div>
-<div class="row">
-    <app-meal-table [data]="data" [(selected)]="selectedMeal" class="col-xs-4"></app-meal-table>
-    <app-meal [meal]="selectedMeal" class="col-xs-8"></app-meal>
-</div>
+<nav class="navbar navbar-inverse bg-inverse">
+      <a class="navbar-text" routerLink="/about" routerLinkActive="active">About</a>
+      <a class="navbar-text" routerLink="/gallery" routerLinkActive="active">Gallery</a>
+      <a class="navbar-text" routerLink="/wiki" routerLinkActive="active">Wikipedia Search</a>
+      <a class="navbar-text" routerLink="/contact" routerLinkActive="active">Contact</a>
+      <a class="navbar-text" *ngIf="service.isLoggedIn" routerLink="/admin" routerLinkActive="active">Admin</a>
+      <a class="btn btn-danger navbar-btn pull-right" routerLink="/login" routerLinkActive="active">Login</a>
+</nav>
+<router-outlet></router-outlet>

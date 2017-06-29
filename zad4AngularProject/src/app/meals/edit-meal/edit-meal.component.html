@@ -1,0 +1,29 @@
+<h3><i>Editing meal id #{{meal.recipe_id}}</i></h3>
+<form [formGroup]="mealForm" (ngSubmit)="onSubmit()" novalidate>
+    <!--Buttons-->
+    <div style="margin-bottom: 1em">
+        <button type="submit" [disabled]="mealForm.pristine" class="btn btn-success">Save</button> &nbsp;
+        <button type="button" (click)="revert()" [disabled]="mealForm.pristine" class="btn btn-warning">Revert</button> &nbsp;
+        <button type="button" (click)="delete()" class="btn btn-danger">Delete</button> &nbsp;
+    </div>
+    <!-- Meal Detail Controls -->
+    <div class="form-group">
+        <label class="center-block">
+          Title:
+          <input class="form-control" type="text" [formControl]='title'>
+      </label>
+        <div *ngIf='title.hasError("required")'>required</div>
+        <label class="center-block">
+          Publisher:
+          <input class="form-control" type="text" [formControl]='publisher'>
+      </label>
+        <label class="center-block">
+          Social Rank:
+          <input class="form-control" type="text" [formControl]='social_rank'>
+      </label>
+        <label class="center-block">
+          Image URL:
+          <input class="form-control" type="text" [formControl]='image_url'>
+      </label>
+    </div>
+</form>

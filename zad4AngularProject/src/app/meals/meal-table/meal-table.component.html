@@ -1,0 +1,23 @@
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <button type="button" (click)="addMeal()" class="btn btn-info">Add Meal</button>
+    <search-field (dataEmiter)='setPager(1, $event)'></search-field>
+  </div>
+  
+  <!--panel body-->
+  <div class="panel-body">
+    <ul class="nav nav-pills nav-stacked">
+      <li *ngFor="let meal of pagedItems" [class.active]="selected == meal">
+        <a (click)="selectedChange.emit(meal)"> {{meal.title}} </a>
+      </li>
+    </ul>
+    <!-- pager -->
+    <div class="text-center">
+      <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage == page}">
+          <a (click)="setPager(page)">{{page}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
